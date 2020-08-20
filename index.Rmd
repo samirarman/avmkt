@@ -95,7 +95,7 @@ ggplotly(p)
 ```{r}
   p <-
   data %>% 
-  filter(NATUREZA == "DOMÉSTICA" & `GRUPO DE VOO` %in% c("REGULAR", "NÃO-REGULAR")) %>%
+  filter(NATUREZA == "DOMÉSTICA") %>%
   group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
   summarise(Demanda = sum(RPK, na.rm = TRUE) / 1e9) %>% 
   filter(Demanda > 0) %>%
@@ -112,7 +112,7 @@ ggplotly(p)
 ```{r}
 p <-
   data %>% 
-  filter(NATUREZA == "INTERNACIONAL" & `GRUPO DE VOO` %in% c("REGULAR", "NÃO-REGULAR")) %>%
+  filter(NATUREZA == "INTERNACIONAL") %>%
   group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
   summarise(Demanda = sum(RPK, na.rm = TRUE) / 1e9) %>% 
   filter(Demanda > 0) %>%
