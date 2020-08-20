@@ -1,6 +1,6 @@
 FROM rocker/verse:4.0.0
 
-RUN R -e "install.packages(c('plotly', 'zoo'))" 
+RUN R -e "install.packages(c('plotly', 'zoo', 'DT'))" 
 
 RUN mkdir /home/avmkt
 
