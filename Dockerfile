@@ -6,11 +6,11 @@ RUN mkdir /home/avmkt
 
 COPY *.Rmd /home/avmkt/
 
-COPY _site.yml /home/avmkt/_site.yml
+COPY _site.yml /home/avmkt/
+
+COPY *.R /home/avmkt/
 
 CMD cd /home/avmkt && \
-    Rscript -e "library(tidyverse); \
-                download.file('https://www.anac.gov.br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/DadosEstatsticos.csv', destfile = 'data.csv'); \
-                rmarkdown::render_site();" && \
+    Rscript -e make_site.R && \
     touch .nojekyll &&\
     rm data.csv
