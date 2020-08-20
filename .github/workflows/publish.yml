@@ -27,10 +27,19 @@ jobs:
     - name: Check produced files
       run: |
         ls -a -l
+        
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git status
+        git add *.html
+        git add site_libs/
+        git commit -m "Update site" -a
        
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-        title: Latest run
-        branch: update-data
-        base: gh-pages
+        branch:  'gh-pages'
+        force:  true 
+        github_token: ${{ secrets.GITHUB_TOKEN }}
