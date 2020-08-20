@@ -6,8 +6,6 @@ RUN mkdir /home/avmkt
 
 COPY *.Rmd /home/avmkt/
 
-COPY _site.yml /home/avmkt/
-
 COPY *.R /home/avmkt/
 
 COPY *.yml /home/avmkt/
