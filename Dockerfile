@@ -14,4 +14,4 @@ CMD cd /home/avmkt && \
     Rscript make_site.R && \
     touch .nojekyll && \
     rm data.zip && \
-    sudo chmod -R g+w
+    sudo chmod -R ug+w .;
