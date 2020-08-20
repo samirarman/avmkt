@@ -2,7 +2,10 @@ name: Data retriever
 
 on:
   push:
-  - branches: master
+    branches:
+      - master
+
+  workflow_dispatch:
 
 jobs:
   build:
