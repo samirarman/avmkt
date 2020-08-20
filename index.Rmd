@@ -1,0 +1,110 @@
+---
+title: "Mercado da aviação no Brasil"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+
+library(tidyverse)
+library(plotly)
+library(zoo)
+
+data <- read_delim(
+  "data.csv",
+  ";",
+  escape_double = FALSE,
+  locale = locale(
+    date_names = "pt",
+    decimal_mark = ",",
+    grouping_mark = ".",
+    encoding = "WINDOWS-1252"
+  ),
+  trim_ws = TRUE,
+  col_types = cols(
+    .default = col_double(),
+    `EMPRESA (SIGLA)` = col_character(),
+    `EMPRESA (NOME)` = col_character(),
+    `EMPRESA (NACIONALIDADE)` = col_character(),
+    `AEROPORTO DE ORIGEM (SIGLA)` = col_character(),
+    `AEROPORTO DE ORIGEM (NOME)` = col_character(),
+    `AEROPORTO DE ORIGEM (UF)` = col_character(),
+    `AEROPORTO DE ORIGEM (REGIÃO)` = col_character(),
+    `AEROPORTO DE ORIGEM (PAÍS)` = col_character(),
+    `AEROPORTO DE ORIGEM (CONTINENTE)` = col_character(),
+    `AEROPORTO DE DESTINO (SIGLA)` = col_character(),
+    `AEROPORTO DE DESTINO (NOME)` = col_character(),
+    `AEROPORTO DE DESTINO (UF)` = col_character(),
+    `AEROPORTO DE DESTINO (REGIÃO)` = col_character(),
+    `AEROPORTO DE DESTINO (PAÍS)` = col_character(),
+    `AEROPORTO DE DESTINO (CONTINENTE)` = col_character(),
+    NATUREZA = col_character(),
+    `GRUPO DE VOO` = col_character()
+  )
+)
+
+data[["Mês/Ano"]] <- as.yearmon(paste0(data[["ANO"]], "-", data[["MÊS"]]))
+
+theme_set(theme_bw())
+
+```
+Bem-vindo!
+
+Neste site você encontra, de modo compacto, uma série de gráficos respondendo questões relativas ao mercado de transporte aéreo público no Brasil.
+
+Os gráficos são interativos. É possível usar zoom para observar com mais detalhes alguma informação.
+
+Para isolar uma linha em algum dos gráficos, dê um clique-duplo sobre a legenda.
+
+### Qual o tamanho do mercado de passageiros no Brasil?
+
+```{r}
+p <-
+  data %>%
+  group_by(`Mês/Ano`, NATUREZA) %>%
+  summarise(Demanda = sum(RPK, na.rm = TRUE) / 1e9) %>%
+  pivot_wider(names_from = NATUREZA, values_from = Demanda) %>%
+  rename("Doméstica" = `DOMÉSTICA`, Internacional = INTERNACIONAL) %>%
+  mutate(Total = `Doméstica` + `Internacional`) %>%
+  pivot_longer(cols = c(2, 3, 4),
+               names_to = "Mercado",
+               values_to = "Demanda") %>%
+  ggplot(aes(x = `Mês/Ano`, y = Demanda, color = Mercado)) +
+  geom_line() +
+  ylab("Demanda (bilhões de assentos-km)")
+
+ggplotly(p)
+```
+
+### Qual a participação das companhias no mercado doméstico de passageiros?
+
+```{r}
+  p <-
+  data %>% 
+  filter(NATUREZA == "DOMÉSTICA" & `GRUPO DE VOO` %in% c("REGULAR", "NÃO-REGULAR")) %>%
+  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
+  summarise(Demanda = sum(RPK, na.rm = TRUE) / 1e9) %>% 
+  filter(Demanda > 0) %>%
+  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
+  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
+  geom_line() +
+  ylab("Demanda (bilhões de assentos-km)")
+
+ggplotly(p)
+```
+
+### Qual a participação das companhias no mercado internacional de passageiros?
+
+```{r}
+p <-
+  data %>% 
+  filter(NATUREZA == "INTERNACIONAL" & `GRUPO DE VOO` %in% c("REGULAR", "NÃO-REGULAR")) %>%
+  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
+  summarise(Demanda = sum(RPK, na.rm = TRUE) / 1e9) %>% 
+  filter(Demanda > 0) %>%
+  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
+  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
+  geom_line() +
+  ylab("Demanda (bilhões de assentos-km)")
+
+ggplotly(p)
+```
