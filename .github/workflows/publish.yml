@@ -16,7 +16,7 @@ jobs:
 
     - name: Build docker image 
       run: |
-        docker build --no-cache  -t avmkt .
+        docker build -t avmkt .
         ls -a
         
     - name: Run image
