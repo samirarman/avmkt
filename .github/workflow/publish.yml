@@ -1,0 +1,26 @@
+name: Data retriever
+
+on:
+  push:
+  - branches: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build docker image 
+      run: |
+        docker build -t avmkt .
+        ls -a
+        
+    - name: Run image
+      run: |
+        docker run -v ~:/home/avmkt avmkt
+        
+    - name: Check produced files
+      run: |
+        ls -a -l
+       
