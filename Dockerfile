@@ -8,7 +8,7 @@ COPY *.Rmd /home/avmkt/
 
 CMD cd /home/avmkt && \
     Rscript -e "library(tidyverse); \
-                download.file("https://www.anac.gov.br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/DadosEstatsticos.csv", destfile = "data.csv"); \
+                download.file('https://www.anac.gov.br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/DadosEstatsticos.csv', destfile = 'data.csv'); \
                 rmarkdown::render_site();" && \
     touch .nojekyll &&\
     rm data.csv
