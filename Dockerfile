@@ -4,11 +4,11 @@ RUN R -e "install.packages(c('plotly', 'zoo'))"
 
 RUN mkdir /home/avmkt
 
-COPY *.Rmd /home/avmkt/
+COPY index.Rmd /home/avmkt/index.Rmd
 
-COPY *.R /home/avmkt/
+COPY make_site.R /home/avmkt/make_site.R
 
-COPY *.yml /home/avmkt/
+COPY _site.yml /home/avmkt/_site.yml
 
 CMD cd /home/avmkt && \
     Rscript -e make_site.R && \
