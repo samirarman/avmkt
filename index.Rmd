@@ -64,7 +64,13 @@ Para isolar uma linha em algum dos gráficos, dê um clique-duplo sobre a legend
 
 Os dados utilizados estão disponíveis no [site da ANAC](https://www.anac.gov.br/assuntos/dados-e-estatisticas/mercado-do-transporte-aereo).
 
-### Qual o tamanho do mercado de passageiros no Brasil?
+
+## Mercado de passageiros
+
+Nesta seção exploramos os dados referentes aos mercados nacional e internacional de passageiros.
+
+
+### * Qual o tamanho do mercado de passageiros no Brasil?
 
 ```{r}
 p <-
