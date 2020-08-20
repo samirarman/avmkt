@@ -19,7 +19,6 @@ jobs:
         docker build -t avmkt .
         ls -a
         pwd
-        docker run -it /bin/ls -a
         
 #    - name: Run image
 #      run: |
