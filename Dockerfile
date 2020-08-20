@@ -13,4 +13,5 @@ COPY _site.yml /home/avmkt/_site.yml
 CMD cd /home/avmkt && \
     Rscript make_site.R && \
     touch .nojekyll && \
-    rm data.zip
+    rm data.zip && \
+    sudo chmod -R g+w
