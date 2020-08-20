@@ -70,7 +70,7 @@ Os dados utilizados estão disponíveis no [site da ANAC](https://www.anac.gov.b
 Nesta seção exploramos os dados referentes aos mercados nacional e internacional de passageiros.
 
 
-### * Qual o tamanho do mercado de passageiros no Brasil?
+### Qual o tamanho do mercado de passageiros no Brasil?
 
 ```{r}
 p <-
