@@ -9,8 +9,7 @@ library(tidyverse)
 library(plotly)
 library(zoo)
 
-data <- read_delim(
-  "data.csv",
+data <- read_delim("data.zip",
   ";",
   escape_double = FALSE,
   locale = locale(
