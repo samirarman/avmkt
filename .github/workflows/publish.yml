@@ -18,12 +18,13 @@ jobs:
       run: |
         docker build -t avmkt .
         ls -a
+        pwd
         
-    - name: Run image
-      run: |
-        docker run -v ~:/home/avmkt avmkt
+#    - name: Run image
+#      run: |
+#        docker run -v ~:/home/avmkt avmkt
         
-    - name: Check produced files
-      run: |
-        ls -a -l
+#    - name: Check produced files
+#      run: |
+#        ls -a -l
        
