@@ -40,8 +40,9 @@ jobs:
         git add site_libs/
         git commit -m "Update site" -a
        
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-        title: Latest run
-        base: gh-pages
+        branch:  'gh-pages'
+        force:  true 
+        github_token: ${{ secrets.GITHUB_TOKEN }}
