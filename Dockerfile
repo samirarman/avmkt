@@ -13,4 +13,4 @@ COPY *.yml /home/avmkt/
 CMD cd /home/avmkt && \
     Rscript -e make_site.R && \
     touch .nojekyll &&\
-    rm data.csv
+    rm data.zip
