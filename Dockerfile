@@ -6,7 +6,7 @@ RUN mkdir /home/avmkt
 
 COPY *.Rmd /home/avmkt/
 
-COPY _site.yml /home/avmkt/_site.yml
+COPY *.yml /home/avmkt/
 
 CMD cd /home/avmkt && \
     Rscript -e "library(tidyverse); \
