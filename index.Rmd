@@ -64,11 +64,20 @@ Para isolar uma linha em algum dos gráficos, dê um clique-duplo sobre a legend
 
 Os dados utilizados estão disponíveis no [site da ANAC](https://www.anac.gov.br/assuntos/dados-e-estatisticas/mercado-do-transporte-aereo).
 
+As seguintes ressalvas são feitas pela [ANAC](https://www.anac.gov.br/assuntos/dados-e-estatisticas/dados-estatisticos/dados-estatisticos) em sua página:
+
+* Informações de carga em voos internacionais da empresa de sigla TAM anteriores a setembro de 2010
+* Informações de bagagem da empresa de sigla GLO entre agosto de 2008 e março de 2009.
+* Informações de bagagem de empresa de sigla AZU entre 2010 e 2012
+* Informações de correio da empresa aérea TAM anteriores a dezembro de 2015
+* Queda do consumo de combustível da TAM em voos internacionais entre abril de 2016 e dezembro de 2017
+* Queda no volume de carga da companhia TAM em abril de 2017
+
+
 
 ## Mercado de passageiros
 
 Nesta seção exploramos os dados referentes aos mercados nacional e internacional de passageiros.
-
 
 ### Qual o tamanho do mercado de passageiros no Brasil?
 
@@ -78,8 +87,8 @@ p <-
   group_by(`Mês/Ano`, NATUREZA) %>%
   summarise(Demanda = sum(RPK, na.rm = TRUE) / 1e9) %>%
   pivot_wider(names_from = NATUREZA, values_from = Demanda) %>%
-  rename("Doméstica" = `DOMÉSTICA`, Internacional = INTERNACIONAL) %>%
-  mutate(Total = `Doméstica` + `Internacional`) %>%
+  rename("Doméstico" = `DOMÉSTICA`, Internacional = INTERNACIONAL) %>%
+  mutate(Total = `Doméstico` + `Internacional`) %>%
   pivot_longer(cols = c(2, 3, 4),
                names_to = "Mercado",
                values_to = "Demanda") %>%
@@ -90,7 +99,25 @@ p <-
 ggplotly(p)
 ```
 
-### Qual a participação das companhias no mercado doméstico de passageiros?
+### Em quanto cada empresa participa?
+
+#### Mercado total (doméstico e internacional)
+
+```{r}
+p <-
+  data %>% 
+  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
+  summarise(Demanda = sum(RPK, na.rm = TRUE) / 1e9) %>% 
+  filter(Demanda > 0) %>%
+  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
+  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
+  geom_line() +
+  ylab("Demanda (bilhões de assentos-km)")
+
+ggplotly(p)
+```
+
+#### Mercado doméstico
 
 ```{r}
   p <-
@@ -107,7 +134,7 @@ ggplotly(p)
 ggplotly(p)
 ```
 
-### Qual a participação das companhias no mercado internacional de passageiros?
+#### Mercado internacional
 
 ```{r}
 p <-
@@ -123,3 +150,78 @@ p <-
 
 ggplotly(p)
 ```
+
+## Mercado de cargas
+
+### Qual o tamanho do mercado de cargas brasileiro?
+
+```{r}
+p <-
+  data %>%
+  group_by(`Mês/Ano`, NATUREZA) %>%
+  summarise(Demanda = sum(`CARGA PAGA KM`, na.rm = TRUE) / 1e9) %>%
+  pivot_wider(names_from = NATUREZA, values_from = Demanda) %>%
+  rename("Doméstico" = `DOMÉSTICA`, Internacional = INTERNACIONAL) %>%
+  mutate(Total = `Doméstico` + `Internacional`) %>%
+  pivot_longer(cols = c(2, 3, 4),
+               names_to = "Mercado",
+               values_to = "Demanda") %>%
+  ggplot(aes(x = `Mês/Ano`, y = Demanda, color = Mercado)) +
+  geom_line() +
+  ylab("Demanda (bilhões de toneladas-km)")
+
+ggplotly(p)
+```
+
+### Em quanto cada empresa participa?
+
+#### Mercado total (doméstico e internacional)
+```{r}
+p <-
+  data %>% 
+  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
+  summarise(Demanda = sum(`CARGA PAGA KM`, na.rm = TRUE) / 1e9) %>% 
+  filter(Demanda > 0) %>%
+  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
+  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
+  geom_line() +
+  ylab("Demanda (milhões de toneladas-km)")
+
+ggplotly(p)
+```
+
+#### Mercado doméstico
+
+```{r}
+p <-
+  data %>% 
+  filter(NATUREZA == "DOMÉSTICA") %>%
+  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
+  summarise(Demanda = sum(`CARGA PAGA KM`, na.rm = TRUE) / 1e9) %>% 
+  filter(Demanda > 0) %>%
+  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
+  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
+  geom_line() +
+  ylab("Demanda (milhões de toneladas-km)")
+
+ggplotly(p)
+```
+
+#### Mercado internacional
+
+```{r}
+p <-
+  data %>% 
+  filter(NATUREZA == "INTERNACIONAL") %>%
+  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
+  summarise(Demanda = sum(`CARGA PAGA KM`, na.rm = TRUE) / 1e9) %>% 
+  filter(Demanda > 0) %>%
+  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
+  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
+  geom_line() +
+  ylab("Demanda (milhões de toneladas-km)")
+
+ggplotly(p)
+```
+
+
