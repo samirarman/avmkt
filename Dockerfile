@@ -10,6 +10,8 @@ COPY _site.yml /home/avmkt/
 
 COPY *.R /home/avmkt/
 
+COPY *.yml /home/avmkt/
+
 CMD cd /home/avmkt && \
     Rscript -e make_site.R && \
     touch .nojekyll &&\
