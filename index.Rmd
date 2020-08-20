@@ -3,13 +3,19 @@ title: "Mercado da aviação no Brasil"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  error = FALSE,
+  message = FALSE
+)
 
 library(tidyverse)
 library(plotly)
 library(zoo)
 
-data <- read_delim("data.zip",
+data <- read_delim(
+  "data.zip",
   ";",
   escape_double = FALSE,
   locale = locale(
@@ -41,8 +47,10 @@ data <- read_delim("data.zip",
   )
 )
 
-data[["Mês/Ano"]] <- as.yearmon(paste0(data[["ANO"]], "-", data[["MÊS"]]))
+data[["Mês/Ano"]] <-
+  as.yearmon(paste0(data[["ANO"]], "-", data[["MÊS"]]))
 
+# Set ggplot2 theme 
 theme_set(theme_bw())
 
 ```
@@ -53,6 +61,8 @@ Neste site você encontra, de modo compacto, uma série de gráficos respondendo
 Os gráficos são interativos. É possível usar zoom para observar com mais detalhes alguma informação.
 
 Para isolar uma linha em algum dos gráficos, dê um clique-duplo sobre a legenda.
+
+Os dados utilizados estão disponíveis no [site da ANAC](https://www.anac.gov.br/assuntos/dados-e-estatisticas/mercado-do-transporte-aereo).
 
 ### Qual o tamanho do mercado de passageiros no Brasil?
 
