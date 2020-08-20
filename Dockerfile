@@ -1,15 +1,14 @@
-FROM rocker/r-ver:4.0.0
-
-RUN apt-get update && apt-get install -y libxml2-dev && apt-get install pandoc
+FROM rocker/verse:4.0.0
 
 RUN R -e "install.packages(c('plotly', 'zoo'))" 
 
 RUN mkdir /home/avmkt
 
-COPY make_site.R /home/avmkt/make_site.R
 COPY *.Rmd /home/avmkt/
 
 CMD cd /home/avmkt && \
-    Rscript -e make_site.R && \
+    Rscript -e "library(tidyverse); \
+                download.file("https://www.anac.gov.br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/DadosEstatsticos.csv", destfile = "data.csv"); \
+                rmarkdown::render_site();" && \
     touch .nojekyll &&\
     rm data.csv
