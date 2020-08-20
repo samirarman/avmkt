@@ -1,0 +1,10 @@
+name: "avmkt"
+output_dir: "."
+exclude: ["*.csv"]
+navbar:
+  left:
+    - text: "Home"
+      href: index.html
+output:
+  html_document:
+    theme: flatly
