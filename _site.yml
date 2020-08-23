@@ -1,15 +1,15 @@
 name: "avmkt"
-output_dir: "."
+output_dir: "docs"
 exclude: ["*.csv"]
 navbar:
   left:
-    - text: "Home"
+    - text: "Panorama"
       href: index.html
-    - text: "Dicionário de siglas"
+    - text: "Siglas das empresas"
       href: dict.html
 output:
   html_document:
     theme: flatly
     toc: true
     toc_float: true
-    toc_collapsed: true
+    toc_collapsed: false

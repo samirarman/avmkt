@@ -7,60 +7,14 @@ knitr::opts_chunk$set(
   echo = FALSE,
   warning = FALSE,
   error = FALSE,
-  message = FALSE
+  message = FALSE,
+  fig.height = 9
 )
-
-library(tidyverse)
-library(plotly)
-library(zoo)
-
-data <- read_delim(
-  "data.zip",
-  ";",
-  escape_double = FALSE,
-  locale = locale(
-    date_names = "pt",
-    decimal_mark = ",",
-    grouping_mark = ".",
-    encoding = "WINDOWS-1252"
-  ),
-  trim_ws = TRUE,
-  col_types = cols(
-    .default = col_double(),
-    `EMPRESA (SIGLA)` = col_character(),
-    `EMPRESA (NOME)` = col_character(),
-    `EMPRESA (NACIONALIDADE)` = col_character(),
-    `AEROPORTO DE ORIGEM (SIGLA)` = col_character(),
-    `AEROPORTO DE ORIGEM (NOME)` = col_character(),
-    `AEROPORTO DE ORIGEM (UF)` = col_character(),
-    `AEROPORTO DE ORIGEM (REGIÃO)` = col_character(),
-    `AEROPORTO DE ORIGEM (PAÍS)` = col_character(),
-    `AEROPORTO DE ORIGEM (CONTINENTE)` = col_character(),
-    `AEROPORTO DE DESTINO (SIGLA)` = col_character(),
-    `AEROPORTO DE DESTINO (NOME)` = col_character(),
-    `AEROPORTO DE DESTINO (UF)` = col_character(),
-    `AEROPORTO DE DESTINO (REGIÃO)` = col_character(),
-    `AEROPORTO DE DESTINO (PAÍS)` = col_character(),
-    `AEROPORTO DE DESTINO (CONTINENTE)` = col_character(),
-    NATUREZA = col_character(),
-    `GRUPO DE VOO` = col_character()
-  )
-)
-
-data[["Mês/Ano"]] <-
-  as.yearmon(paste0(data[["ANO"]], "-", data[["MÊS"]]))
-
-# Set ggplot2 theme 
-theme_set(theme_bw())
 
 ```
 Bem-vindo!
 
 Neste site você encontra, de modo compacto, uma série de gráficos respondendo questões relativas ao mercado de transporte aéreo público no Brasil.
-
-Os gráficos são interativos. É possível usar zoom para observar com mais detalhes alguma informação.
-
-Para isolar uma linha em algum dos gráficos, dê um clique-duplo sobre a legenda.
 
 Os dados utilizados estão disponíveis no [site da ANAC](https://www.anac.gov.br/assuntos/dados-e-estatisticas/mercado-do-transporte-aereo).
 
@@ -79,149 +33,35 @@ As seguintes ressalvas são feitas pela [ANAC](https://www.anac.gov.br/assuntos/
 
 Nesta seção exploramos os dados referentes aos mercados nacional e internacional de passageiros.
 
-### Qual o tamanho do mercado de passageiros no Brasil?
+### Quantos passageiros foram transportados?
 
 ```{r}
-p <-
-  data %>%
-  group_by(`Mês/Ano`, NATUREZA) %>%
-  summarise(Demanda = sum(RPK, na.rm = TRUE) / 1e9) %>%
-  pivot_wider(names_from = NATUREZA, values_from = Demanda) %>%
-  rename("Doméstico" = `DOMÉSTICA`, Internacional = INTERNACIONAL) %>%
-  mutate(Total = `Doméstico` + `Internacional`) %>%
-  pivot_longer(cols = c(2, 3, 4),
-               names_to = "Mercado",
-               values_to = "Demanda") %>%
-  ggplot(aes(x = `Mês/Ano`, y = Demanda, color = Mercado)) +
-  geom_line() +
-  ylab("Demanda (bilhões de assentos-km)")
-
-ggplotly(p)
+pax_graph
 ```
 
-### Em quanto cada empresa participa?
-
-#### Mercado total (doméstico e internacional)
+### Qual o tamanho da oferta e demanda?
 
 ```{r}
-p <-
-  data %>% 
-  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
-  summarise(Demanda = sum(RPK, na.rm = TRUE) / 1e9) %>% 
-  filter(Demanda > 0) %>%
-  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
-  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
-  geom_line() +
-  ylab("Demanda (bilhões de assentos-km)")
-
-ggplotly(p)
+rpk_graph
 ```
 
-#### Mercado doméstico
+### Qual a ocupação das aeronaves?
 
 ```{r}
-  p <-
-  data %>% 
-  filter(NATUREZA == "DOMÉSTICA") %>%
-  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
-  summarise(Demanda = sum(RPK, na.rm = TRUE) / 1e9) %>% 
-  filter(Demanda > 0) %>%
-  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
-  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
-  geom_line() +
-  ylab("Demanda (bilhões de assentos-km)")
-
-ggplotly(p)
+load_graph
 ```
 
-#### Mercado internacional
-
-```{r}
-p <-
-  data %>% 
-  filter(NATUREZA == "INTERNACIONAL") %>%
-  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
-  summarise(Demanda = sum(RPK, na.rm = TRUE) / 1e9) %>% 
-  filter(Demanda > 0) %>%
-  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
-  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
-  geom_line() +
-  ylab("Demanda (bilhões de assentos-km)")
-
-ggplotly(p)
-```
 
 ## Mercado de cargas
 
-### Qual o tamanho do mercado de cargas brasileiro?
+### Quantas toneladas foram transportadas?
 
 ```{r}
-p <-
-  data %>%
-  group_by(`Mês/Ano`, NATUREZA) %>%
-  summarise(Demanda = sum(`CARGA PAGA KM`, na.rm = TRUE) / 1e9) %>%
-  pivot_wider(names_from = NATUREZA, values_from = Demanda) %>%
-  rename("Doméstico" = `DOMÉSTICA`, Internacional = INTERNACIONAL) %>%
-  mutate(Total = `Doméstico` + `Internacional`) %>%
-  pivot_longer(cols = c(2, 3, 4),
-               names_to = "Mercado",
-               values_to = "Demanda") %>%
-  ggplot(aes(x = `Mês/Ano`, y = Demanda, color = Mercado)) +
-  geom_line() +
-  ylab("Demanda (bilhões de toneladas-km)")
-
-ggplotly(p)
+cargo_graph
 ```
 
-### Em quanto cada empresa participa?
-
-#### Mercado total (doméstico e internacional)
-```{r}
-p <-
-  data %>% 
-  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
-  summarise(Demanda = sum(`CARGA PAGA KM`, na.rm = TRUE) / 1e9) %>% 
-  filter(Demanda > 0) %>%
-  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
-  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
-  geom_line() +
-  ylab("Demanda (milhões de toneladas-km)")
-
-ggplotly(p)
-```
-
-#### Mercado doméstico
+### Qual o tamanho da demanda por carga?
 
 ```{r}
-p <-
-  data %>% 
-  filter(NATUREZA == "DOMÉSTICA") %>%
-  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
-  summarise(Demanda = sum(`CARGA PAGA KM`, na.rm = TRUE) / 1e9) %>% 
-  filter(Demanda > 0) %>%
-  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
-  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
-  geom_line() +
-  ylab("Demanda (milhões de toneladas-km)")
-
-ggplotly(p)
+rtk_graph
 ```
-
-#### Mercado internacional
-
-```{r}
-p <-
-  data %>% 
-  filter(NATUREZA == "INTERNACIONAL") %>%
-  group_by(`Mês/Ano`, `EMPRESA (SIGLA)`) %>% 
-  summarise(Demanda = sum(`CARGA PAGA KM`, na.rm = TRUE) / 1e9) %>% 
-  filter(Demanda > 0) %>%
-  rename("Empresa" = `EMPRESA (SIGLA)`) %>% 
-  ggplot(aes(x =`Mês/Ano`, y = Demanda, color = Empresa)) + 
-  geom_line() +
-  ylab("Demanda (milhões de toneladas-km)")
-
-ggplotly(p)
-```
-
-
