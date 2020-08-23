@@ -1,5 +1,5 @@
 ---
-title: "Dicionário de siglas"
+title: "Dicionário de siglas das empresas"
 ---
 
 ```{r setup, include=FALSE}
@@ -10,43 +10,8 @@ knitr::opts_chunk$set(
   message = FALSE
 )
 
-library(tidyverse)
-library(DT)
-
-data <- read_delim(
-  "data.zip",
-  ";",
-  escape_double = FALSE,
-  locale = locale(
-    date_names = "pt",
-    decimal_mark = ",",
-    grouping_mark = ".",
-    encoding = "WINDOWS-1252"
-  ),
-  trim_ws = TRUE,
-  col_types = cols(
-    .default = col_double(),
-    `EMPRESA (SIGLA)` = col_character(),
-    `EMPRESA (NOME)` = col_character(),
-    `EMPRESA (NACIONALIDADE)` = col_character(),
-    `AEROPORTO DE ORIGEM (SIGLA)` = col_character(),
-    `AEROPORTO DE ORIGEM (NOME)` = col_character(),
-    `AEROPORTO DE ORIGEM (UF)` = col_character(),
-    `AEROPORTO DE ORIGEM (REGIÃO)` = col_character(),
-    `AEROPORTO DE ORIGEM (PAÍS)` = col_character(),
-    `AEROPORTO DE ORIGEM (CONTINENTE)` = col_character(),
-    `AEROPORTO DE DESTINO (SIGLA)` = col_character(),
-    `AEROPORTO DE DESTINO (NOME)` = col_character(),
-    `AEROPORTO DE DESTINO (UF)` = col_character(),
-    `AEROPORTO DE DESTINO (REGIÃO)` = col_character(),
-    `AEROPORTO DE DESTINO (PAÍS)` = col_character(),
-    `AEROPORTO DE DESTINO (CONTINENTE)` = col_character(),
-    NATUREZA = col_character(),
-    `GRUPO DE VOO` = col_character()
-  )
-)
 ```
 
 ```{r}
-datatable(unique(data[,c("EMPRESA (SIGLA)", "EMPRESA (NOME)")]))
+company_dictionary
 ```
