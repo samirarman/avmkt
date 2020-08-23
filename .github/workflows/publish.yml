@@ -37,8 +37,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git status
-        git add *.html
-        git add site_libs/
+        git add docs/
         git commit -m "Update site" -a
        
     - name: Push changes
