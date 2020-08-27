@@ -7,8 +7,7 @@ knitr::opts_chunk$set(
   echo = FALSE,
   warning = FALSE,
   error = FALSE,
-  message = FALSE,
-  fig.height = 9
+  message = FALSE
 )
 
 ```
@@ -63,5 +62,5 @@ cargo_graph
 ### Qual o tamanho da demanda por carga?
 
 ```{r}
-rtk_graph
+rck_graph
 ```
