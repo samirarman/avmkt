@@ -14,3 +14,4 @@ output:
     toc_float: true
     toc_collapsed: false
     css: styles.css
+    fig_height: 3.5
