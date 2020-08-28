@@ -63,11 +63,9 @@ names(data) <- c(
   "rck"
 )
 
-data$year_month <- as.yearmon(paste0(
-  data$year,
-  "-",
-  data$month
-))
+data$year_month <- as.yearmon(paste0(data$year,
+                                     "-",
+                                     data$month))
 
 agg_if_numeric <- function(data) {
   data %>%
@@ -80,9 +78,9 @@ monthly_summaries <-
   agg_if_numeric() %>%
   mutate(market = ifelse(market == "DOMÉSTICA", "Doméstico", "Internacional")) %>%
   bind_rows(data %>%
-    group_by(year_month) %>%
-    agg_if_numeric() %>%
-    mutate(market = "Todos")) %>%
+              group_by(year_month) %>%
+              agg_if_numeric() %>%
+              mutate(market = "Todos")) %>%
   select(-c(year, month)) %>%
   mutate(
     pax = pax / 1e6,
@@ -99,58 +97,86 @@ monthly_summaries <-
 # Custom plotting function for market comparison
 make_market_graph <-
   function(variables,
-           ylabel = "",
            yearly = FALSE) {
+    
+    title <- "Série mensal"
+    if (yearly) {
+      title <- "Série anual"
+    }
+    
     data <- monthly_summaries %>%
-      select(year_month, market, {{ variables }}) %>%
+      select(year_month, market, {{variables}}) %>%
       pivot_wider(
         id_cols = c(year_month, market),
         names_from = "market",
-        values_from = {{ variables }}
+        values_from = {{variables}}
       )
-
+    
     series <-
       as.xts(data[, 2:4], order.by = data$year_month)
-
+    
     if (yearly) {
-      series <- apply.yearly(series, colSums)
+      if (variables == "load_factor") {
+        series <- apply.yearly(series, mean)
+      } else {
+        series <- apply.yearly(series, colSums)
+      }
     }
-
+    
     series %>%
-      dygraph(main = ylabel, group = "market") %>%
+      dygraph(main = title, group = "market") %>%
       dyOptions(colors = c("#F39C12", "#E74C3C", "#2C3E50")) %>%
       dyRangeSelector(height = 30)
   }
 
 
 
-pax_graph <-
-  make_market_graph("pax", "Passageiros transportados (em milhões)")
+pax_monthly <-
+  make_market_graph("pax")
 
-deps_graph <-
-  make_market_graph("departures", "Decolagens")
+deps_monthly <-
+  make_market_graph("departures")
 
-rpk_graph <-
-  make_market_graph("rpk", "Demanda (em bilhões de assentos-km)")
+rpk_monthly <-
+  make_market_graph("rpk")
 
-load_graph <-
-  make_market_graph("load_factor", "Ocupação das aeronaves (em %)")
+load_monthly <-
+  make_market_graph("load_factor")
 
-cargo_graph <-
-  make_market_graph("cargo", "Carga paga transportada (em toneladas)")
+cargo_monthly <-
+  make_market_graph("cargo")
 
-rck_graph <-
-  make_market_graph("rck", "Demanda de carga (em bilhões de toneladas-km)")
+rck_monthly <-
+  make_market_graph("rck")
+
+# Market yearly ---------------------------------
+
+
+pax_yearly <-
+  make_market_graph("pax", TRUE)
+
+deps_yearly <-
+  make_market_graph("departures", TRUE)
+
+rpk_yearly <-
+  make_market_graph("rpk", TRUE)
+
+load_yearly <-
+  make_market_graph("load_factor", TRUE)
+
+cargo_yearly <-
+  make_market_graph("cargo", TRUE)
+
+rck_yearly <-
+  make_market_graph("rck", TRUE)
 
 # Company dictionary page -----------------------
 
 company_dictionary <-
   unique(data[, c("company", "company_name")]) %>%
   arrange(company) %>%
-  rename(
-    "Sigla ICAO" = company,
-    "Nome da empresa" = company_name
-  ) %>%
+  rename("Sigla ICAO" = company,
+         "Nome da empresa" = company_name) %>%
   datatable()
 
 

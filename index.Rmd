@@ -27,40 +27,60 @@ As seguintes ressalvas são feitas pela [ANAC](https://www.anac.gov.br/assuntos/
 * Queda no volume de carga da companhia TAM em abril de 2017
 
 
+# Mercado de passageiros
 
-## Mercado de passageiros
-
-Nesta seção exploramos os dados referentes aos mercados nacional e internacional de passageiros.
-
-### Quantos passageiros foram transportados?
+### Passageiros transportados (em milhões)
 
 ```{r}
-pax_graph
+pax_yearly
+pax_monthly
 ```
 
-### Qual o tamanho da oferta e demanda?
+<br>
+
+### Decolagens
 
 ```{r}
-rpk_graph
+deps_yearly
+deps_monthly
 ```
 
-### Qual a ocupação das aeronaves?
+<br>
+
+### Volume da demanda (assentos-km)
 
 ```{r}
-load_graph
+rpk_yearly
+rpk_monthly
 ```
 
+<br>
 
-## Mercado de cargas
-
-### Quantas toneladas foram transportadas?
+### *Load factor* (em %)
 
 ```{r}
-cargo_graph
+load_yearly
+load_monthly
 ```
 
-### Qual o tamanho da demanda por carga?
+<br>
+
+# Mercado de cargas
+
+### Carga transportada (em toneladas)
 
 ```{r}
-rck_graph
+cargo_yearly
+cargo_monthly
 ```
+
+<br>
+
+### Volume da demanda (tonelada-km)
+
+```{r}
+rck_yearly
+rck_monthly
+```
+
+
