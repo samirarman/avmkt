@@ -1,6 +1,8 @@
 library(tidyverse)
 library(zoo)
 library(DT)
+library(dygraphs)
+library(xts)
 
 # Data processing -----------
 download.file(
@@ -43,7 +45,7 @@ raw_data <- read_delim(
 
 data <-
   raw_data %>%
-  select(1:5, 18:20, 22, 25:26, 32)
+  select(1:5, 18:20, 22, 25:26, 31:32)
 
 names(data) <- c(
   "company",
@@ -57,106 +59,98 @@ names(data) <- c(
   "cargo",
   "ask",
   "rpk",
+  "departures",
   "rck"
 )
 
-data$year_month <- as.yearmon(paste0(data$year,
-                                     "-",
-                                     data$month))
+data$year_month <- as.yearmon(paste0(
+  data$year,
+  "-",
+  data$month
+))
 
-make_summary <- function(data, var) {
+agg_if_numeric <- function(data) {
   data %>%
-    group_by(year_month = data[[var]]) %>%
-    summarise(across(where(is.numeric), ~ sum(.x, na.rm = TRUE))) %>%
-    select(-c(year, month))
+    summarise(across(where(is.numeric), ~ sum(.x, na.rm = TRUE)))
 }
 
-
-
-all_mkt_summary <-
+monthly_summaries <-
   data %>%
-  make_summary("year_month")
-
-domestic_mkt_summary <-
-  data %>%
-  filter(market == "DOMÉSTICA") %>%
-  make_summary("year_month")
-
-intl_mkt_summary <-
-  data %>%
-  filter(market == "INTERNACIONAL") %>%
-  make_summary("year_month")
-
-summaries <-
-  bind_rows(
-    list(
-      "Todos" = all_mkt_summary,
-      "Doméstico" = domestic_mkt_summary,
-      "Internacional" = intl_mkt_summary
-    ),
-    .id = "market"
-  ) %>%
-  mutate(load_factor = rpk / ask)
-
-theme_set(
-  theme_light() +
-    theme(
-      legend.position = "top",
-
-      strip.background = element_rect(fill = "#2C3E50"),
-      strip.text = element_text(color = "white",
-                                face = "bold")
-    )
-)
+  group_by(year_month, market) %>%
+  agg_if_numeric() %>%
+  mutate(market = ifelse(market == "DOMÉSTICA", "Doméstico", "Internacional")) %>%
+  bind_rows(data %>%
+    group_by(year_month) %>%
+    agg_if_numeric() %>%
+    mutate(market = "Todos")) %>%
+  select(-c(year, month)) %>%
+  mutate(
+    pax = pax / 1e6,
+    cargo = cargo / 1e3,
+    ask = ask / 1e9,
+    rpk = rpk / 1e9,
+    rck = rck / 1e9,
+    load_factor = rpk / ask * 100
+  )
 
 
-base_plot <- function() {
-  summaries %>%
-    ggplot(aes(x = year_month)) +
-    facet_wrap(facets = vars(market),
-               nrow = length(levels(as.factor(summaries$market)))) +
-    labs(x = "",
-         color = "") +
-    ylim(0, NA)
-}
+# Index page -------------------
+
+# Custom plotting function for market comparison
+make_market_graph <-
+  function(variables,
+           ylabel = "",
+           yearly = FALSE) {
+    data <- monthly_summaries %>%
+      select(year_month, market, {{ variables }}) %>%
+      pivot_wider(
+        id_cols = c(year_month, market),
+        names_from = "market",
+        values_from = {{ variables }}
+      )
+
+    series <-
+      as.xts(data[, 2:4], order.by = data$year_month)
+
+    if (yearly) {
+      series <- apply.yearly(series, colSums)
+    }
+
+    series %>%
+      dygraph(main = ylabel, group = "market") %>%
+      dyOptions(colors = c("#F39C12", "#E74C3C", "#2C3E50")) %>%
+      dyRangeSelector(height = 30)
+  }
+
+
 
 pax_graph <-
-  base_plot() +
-  geom_line(aes(y = pax / 1e6)) +
-  labs(y = "Passageiros (em milhões)")
+  make_market_graph("pax", "Passageiros transportados (em milhões)")
+
+deps_graph <-
+  make_market_graph("departures", "Decolagens")
 
 rpk_graph <-
-  base_plot() +
-  geom_line(aes(y = rpk / 1e9, color = "RPK")) +
-  geom_line(aes(y = ask / 1e9, color = "ASK")) +
-  scale_color_manual(values = c("gray70", "black")) +
-  labs(y = "RPK (em bilhões de assentos-km)",
-       colo = "Helo")
+  make_market_graph("rpk", "Demanda (em bilhões de assentos-km)")
 
 load_graph <-
-  base_plot() +
-  geom_line(aes(y = load_factor * 100)) +
-  labs(y = "Load factor (em %)") +
-  theme(legend.position = "none") +
-  facet_wrap(facets = vars(market),
-             nrow = 3) +
-  ylim(0, 100)
+  make_market_graph("load_factor", "Ocupação das aeronaves (em %)")
 
 cargo_graph <-
-  base_plot() +
-  geom_line(aes(y = cargo / 1e3)) +
-  labs(y = "Carga paga (em toneladas)")
+  make_market_graph("cargo", "Carga paga transportada (em toneladas)")
 
-rtk_graph <-
-  base_plot() +
-  geom_line(aes(y = rck / 1e9)) +
-  labs(y = "RTK (em milhões de toneladas-km)")
+rck_graph <-
+  make_market_graph("rck", "Demanda de carga (em bilhões de toneladas-km)")
+
+# Company dictionary page -----------------------
 
 company_dictionary <-
-  unique(data[,c("company", "company_name")]) %>%
+  unique(data[, c("company", "company_name")]) %>%
   arrange(company) %>%
-  rename("Sigla ICAO" = company,
-        "Nome da empresa" = company_name) %>%
+  rename(
+    "Sigla ICAO" = company,
+    "Nome da empresa" = company_name
+  ) %>%
   datatable()
 
 
