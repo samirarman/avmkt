@@ -13,5 +13,3 @@ output:
     toc: true
     toc_float: true
     toc_collapsed: false
-    fig_width: 6.5
-    fig_height: 3.5
