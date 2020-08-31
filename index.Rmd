@@ -32,8 +32,8 @@ As seguintes ressalvas são feitas pela [ANAC](https://www.anac.gov.br/assuntos/
 ### Passageiros transportados (em milhões)
 
 ```{r}
-pax_yearly
-pax_monthly
+yearly_plots$pax
+monthly_plots$pax
 ```
 
 <br>
@@ -41,8 +41,8 @@ pax_monthly
 ### Decolagens
 
 ```{r}
-deps_yearly
-deps_monthly
+yearly_plots$departures
+monthly_plots$departures
 ```
 
 <br>
@@ -50,8 +50,8 @@ deps_monthly
 ### Volume da demanda (assentos-km)
 
 ```{r}
-rpk_yearly
-rpk_monthly
+yearly_plots$rpk
+monthly_plots$rpk
 ```
 
 <br>
@@ -59,8 +59,8 @@ rpk_monthly
 ### *Load factor* (em %)
 
 ```{r}
-load_yearly
-load_monthly
+yearly_plots$load
+monthly_plots$load
 ```
 
 <br>
@@ -70,8 +70,8 @@ load_monthly
 ### Carga transportada (em toneladas)
 
 ```{r}
-cargo_yearly
-cargo_monthly
+yearly_plots$cargo
+monthly_plots$cargo
 ```
 
 <br>
@@ -79,8 +79,8 @@ cargo_monthly
 ### Volume da demanda (tonelada-km)
 
 ```{r}
-rck_yearly
-rck_monthly
+yearly_plots$rck
+monthly_plots$rck
 ```
 
 

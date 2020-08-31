@@ -3,15 +3,17 @@ output_dir: "docs"
 exclude: ["*.csv"]
 navbar:
   left:
-    - text: "Panorama"
+    - text: "Mercado de passageiros"
       href: index.html
+    - text: "Mercado de cargas"
+      href: cargo.html
     - text: "Siglas das empresas"
       href: dict.html
+  right:
+    - text: "Sobre"
+      href: about.html
 output:
   html_document:
-    theme: flatly
-    toc: true
-    toc_float: true
-    toc_collapsed: false
+    theme: cosmo
     css: styles.css
     fig_height: 3.5
