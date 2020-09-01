@@ -1,0 +1,11 @@
+---
+title: "Sobre este site"
+---
+
+Bem-vindo!
+
+Neste site você encontra, de modo compacto, uma série de gráficos respondendo questões relativas ao mercado de transporte aéreo público no Brasil.
+
+Os dados utilizados estão disponíveis no [site da ANAC](https://www.anac.gov.br/assuntos/dados-e-estatisticas/mercado-do-transporte-aereo). Observe as ressalvas sobre os dados [aqui](https://www.anac.gov.br/assuntos/dados-e-estatisticas/dados-estatisticos/dados-estatisticos)
+
+<br>
