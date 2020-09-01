@@ -1,0 +1,23 @@
+---
+title: Mercado de cargas
+---
+```{r, child="_chunk_opts.Rmd"}
+```
+
+## {.tabset}
+
+### Carga transportada (em toneladas)
+
+```{r}
+yearly_plots$cargo
+monthly_plots$cargo
+```
+
+<br>
+
+### Volume da demanda (tonelada-km)
+
+```{r}
+yearly_plots$rck
+monthly_plots$rck
+```

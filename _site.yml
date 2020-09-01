@@ -2,16 +2,20 @@ name: "avmkt"
 output_dir: "docs"
 exclude: ["*.csv"]
 navbar:
+  title: "Mercado da aviação no Brasil"
   left:
-    - text: "Panorama"
+    - text: "Passageiros"
       href: index.html
-    - text: "Siglas das empresas"
+    - text: "Cargas"
+      href: cargo.html
+    - text: "Siglas"
       href: dict.html
+  right:
+    - text: "Sobre"
+      href: about.html
 output:
   html_document:
-    theme: flatly
-    toc: true
-    toc_float: true
-    toc_collapsed: false
+    theme: cosmo
     css: styles.css
     fig_height: 3.5
+
