@@ -1,15 +1,8 @@
 ---
-title: "Dicionário de siglas das empresas"
+title: "Dicionário de siglas"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo = FALSE,
-  warning = FALSE,
-  error = FALSE,
-  message = FALSE
-)
-
+```{r, child="_chunk_opts.Rmd"}
 ```
 
 ```{r}

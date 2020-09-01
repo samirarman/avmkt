@@ -1,33 +1,11 @@
 ---
-title: "Mercado da aviação no Brasil"
+title: "Mercado de passageiros"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo = FALSE,
-  warning = FALSE,
-  error = FALSE,
-  message = FALSE
-)
-
+```{r, child="_chunk_opts.Rmd"}
 ```
-Bem-vindo!
 
-Neste site você encontra, de modo compacto, uma série de gráficos respondendo questões relativas ao mercado de transporte aéreo público no Brasil.
-
-Os dados utilizados estão disponíveis no [site da ANAC](https://www.anac.gov.br/assuntos/dados-e-estatisticas/mercado-do-transporte-aereo).
-
-As seguintes ressalvas são feitas pela [ANAC](https://www.anac.gov.br/assuntos/dados-e-estatisticas/dados-estatisticos/dados-estatisticos) em sua página:
-
-* Informações de carga em voos internacionais da empresa de sigla TAM anteriores a setembro de 2010
-* Informações de bagagem da empresa de sigla GLO entre agosto de 2008 e março de 2009.
-* Informações de bagagem de empresa de sigla AZU entre 2010 e 2012
-* Informações de correio da empresa aérea TAM anteriores a dezembro de 2015
-* Queda do consumo de combustível da TAM em voos internacionais entre abril de 2016 e dezembro de 2017
-* Queda no volume de carga da companhia TAM em abril de 2017
-
-
-# Mercado de passageiros
+## {.tabset}
 
 ### Passageiros transportados (em milhões)
 
@@ -62,25 +40,3 @@ monthly_plots$rpk
 yearly_plots$load
 monthly_plots$load
 ```
-
-<br>
-
-# Mercado de cargas
-
-### Carga transportada (em toneladas)
-
-```{r}
-yearly_plots$cargo
-monthly_plots$cargo
-```
-
-<br>
-
-### Volume da demanda (tonelada-km)
-
-```{r}
-yearly_plots$rck
-monthly_plots$rck
-```
-
-

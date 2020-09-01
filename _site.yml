@@ -2,12 +2,13 @@ name: "avmkt"
 output_dir: "docs"
 exclude: ["*.csv"]
 navbar:
+  title: "Mercado da aviação no Brasil"
   left:
-    - text: "Mercado de passageiros"
+    - text: "Passageiros"
       href: index.html
-    - text: "Mercado de cargas"
+    - text: "Cargas"
       href: cargo.html
-    - text: "Siglas das empresas"
+    - text: "Siglas"
       href: dict.html
   right:
     - text: "Sobre"
@@ -17,3 +18,4 @@ output:
     theme: cosmo
     css: styles.css
     fig_height: 3.5
+

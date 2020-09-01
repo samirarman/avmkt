@@ -7,3 +7,7 @@ div .dygraphs {
 canvas {
   max-width: 100%;
 }
+
+div .tabset {
+  font-weight: bold;
+}
