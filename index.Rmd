@@ -5,7 +5,7 @@ title: "Mercado de passageiros"
 ```{r, child="_chunk_opts.Rmd"}
 ```
 
-## {.tabset}
+## {.tabset .tabset-pills}
 
 ### Passageiros transportados (em milhões)
 
@@ -16,16 +16,8 @@ monthly_plots$pax
 
 <br>
 
-### Decolagens
 
-```{r}
-yearly_plots$departures
-monthly_plots$departures
-```
-
-<br>
-
-### Volume da demanda (assentos-km)
+### Demanda (assentos-km)
 
 ```{r}
 yearly_plots$rpk
@@ -34,9 +26,25 @@ monthly_plots$rpk
 
 <br>
 
+### *Market-share*
+```{r}
+share_plots$dom_pax
+share_plots$intl_pax
+```
+
+
 ### *Load factor* (em %)
 
 ```{r}
 yearly_plots$load
 monthly_plots$load
+```
+
+<br>
+
+### Decolagens
+
+```{r}
+yearly_plots$departures
+monthly_plots$departures
 ```

@@ -8,9 +8,11 @@ navbar:
       href: index.html
     - text: "Cargas"
       href: cargo.html
+    - text: "Tarifas domésticas"
+      href: fares.html
+  right:
     - text: "Siglas"
       href: dict.html
-  right:
     - text: "Sobre"
       href: about.html
 output:

@@ -4,6 +4,14 @@ div .dygraphs {
   margin-bottom: 25px;
 }
 
+div .dygraph-label {
+  font-weight: normal;
+}
+
+div .dygraph-axis-label {
+  font-weight: normal;
+}
+
 canvas {
   max-width: 100%;
 }
