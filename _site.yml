@@ -1,6 +1,6 @@
 name: "avmkt"
 output_dir: "docs"
-exclude: ["*.csv"]
+exclude: ["*.csv", "Dockerfile", "*.zip", ".rds"]
 navbar:
   title: "Mercado da aviação no Brasil"
   left:
