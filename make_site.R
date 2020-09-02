@@ -11,7 +11,7 @@ download.file(
   destfile = "data.zip"
 )
 
-fares_raw_data <- readRDS("./data/domestic_fares.rds")
+fares_raw_data <- readRDS("domestic_fares.rds")
 
 raw_data <- read_delim(
   "data.zip",
