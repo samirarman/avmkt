@@ -1,0 +1,26 @@
+---
+title: "Tarifas do mercado doméstico"
+---
+```{r, child="_chunk_opts.Rmd"}
+```
+## {.tabset .tabset-pills}
+
+### Ticket-médio (em R$)
+
+```{r}
+fare_plots$mean_ticket
+```
+
+<br>
+
+### Assentos vendidos (em milhares)
+
+```{r}
+fare_plots$seats
+```
+<br>
+
+### Receita estimada (em milhões de R$)
+```{r}
+fare_plots$yield
+```
