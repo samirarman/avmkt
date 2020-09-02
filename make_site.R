@@ -11,7 +11,8 @@ download.file(
   destfile = "data.zip"
 )
 
-fares_raw_data <- readRDS("domestic_fares.rds")
+fares_raw_data <- 2015:2020 %>%
+  map_dfr(~ readRDS(paste0("domestic_fares_", .x,".rds")))
 
 raw_data <- read_delim(
   "data.zip",
@@ -94,9 +95,6 @@ monthly_summaries <-
     load_factor = rpk / ask * 100
   )
 
-
-# Index page -------------------
-
 # Custom plotting function for market comparison
 make_market_graph <-
   function(variables,
@@ -171,7 +169,7 @@ companies_monthly_summaries <-
     cargo_share = 100 * rck / mkt_rck
   )
 
-
+# Finds the top n filtered by a variable
 find_top <- function(market, variable, rank) {
   companies_monthly_summaries %>%
     filter(market == {
@@ -199,7 +197,7 @@ top_companies <-
   unlist %>%
   unique
 
-
+# Custom plotting function for market-share
 make_share_plot <- function(market, variable, yearly = FALSE) {
   title <-
     ifelse(market == "INTERNACIONAL", "Internacional", "Nacional")
@@ -211,16 +209,8 @@ make_share_plot <- function(market, variable, yearly = FALSE) {
       }
     } &
       company %in% top_companies) %>%
-    select(year_month, company, {
-      {
-        variable
-      }
-    }) %>%
-    pivot_wider(names_from = company, values_from = {
-      {
-        variable
-      }
-    })
+    select(year_month, company, {{variable}}) %>%
+    pivot_wider(names_from = company, values_from = {{variable}})
 
   series <- as.xts(data[, -1], order.by = data$year_month)
 
@@ -234,6 +224,7 @@ make_share_plot <- function(market, variable, yearly = FALSE) {
     dyRangeSelector(height = 30)
 }
 
+# Market-share plots
 share_plots <-
   expand.grid(
     market = c("DOMÉSTICA", "INTERNACIONAL"),
@@ -245,7 +236,6 @@ share_plots <-
 names(share_plots) <-
   c("dom_pax", "intl_pax", "dom_cargo", "intl_cargo")
 
-# Company dictionary page -----------------------
 
 company_dictionary <-
   unique(data[, c("company", "company_name")]) %>%
@@ -257,16 +247,18 @@ company_dictionary <-
 fares <-
   fares_raw_data %>%
   mutate(yield = fare * seats,
-         year_month = as.yearmon(paste0(year,"-", month))) %>%
+         year_month = as.yearmon(paste0(year, "-", month))) %>%
   group_by(year_month, company) %>%
-  summarise(yield = sum(yield),
-            seats = sum(seats),
-            mean_ticket = yield / seats) %>%
+  summarise(
+    yield = sum(yield),
+    seats = sum(seats),
+    mean_ticket = yield / seats
+  ) %>%
   mutate(yield = yield / 1e6,
          seats = seats / 1e3)
 
+# Custom plotting function for fare data
 make_fare_plots <- function(variable, yearly = FALSE) {
-
   title <- "Série mensa"
   if (yearly) {
     title <- "Série anual"
@@ -277,7 +269,7 @@ make_fare_plots <- function(variable, yearly = FALSE) {
     select(year_month, company, {{variable}}) %>%
     pivot_wider(names_from = company, values_from = {{variable}})
 
-  series <- xts(data[,-1], order.by = data$year_month)
+  series <- xts(data[, -1], order.by = data$year_month)
 
   if (yearly) {
     if (variable == "mean_ticket") {
