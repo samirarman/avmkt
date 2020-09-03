@@ -11,8 +11,7 @@ download.file(
   destfile = "data.zip"
 )
 
-fares_raw_data <- 2015:2020 %>%
-  map_dfr(~ readRDS(paste0("domestic_fares_", .x,".rds")))
+fares <- readRDS("fares_summary.rds")
 
 raw_data <- read_delim(
   "data.zip",
@@ -244,18 +243,6 @@ company_dictionary <-
          "Nome da empresa" = company_name) %>%
   datatable()
 
-fares <-
-  fares_raw_data %>%
-  mutate(yield = fare * seats,
-         year_month = as.yearmon(paste0(year, "-", month))) %>%
-  group_by(year_month, company) %>%
-  summarise(
-    yield = sum(yield),
-    seats = sum(seats),
-    mean_ticket = yield / seats
-  ) %>%
-  mutate(yield = yield / 1e6,
-         seats = seats / 1e3)
 
 # Custom plotting function for fare data
 make_fare_plots <- function(variable, yearly = FALSE) {
