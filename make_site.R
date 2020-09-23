@@ -246,7 +246,7 @@ company_dictionary <-
 
 # Custom plotting function for fare data
 make_fare_plots <- function(variable, yearly = FALSE) {
-  title <- "Série mensa"
+  title <- "Série mensal"
   if (yearly) {
     title <- "Série anual"
   }
@@ -256,7 +256,9 @@ make_fare_plots <- function(variable, yearly = FALSE) {
     select(year_month, company, {{variable}}) %>%
     pivot_wider(names_from = company, values_from = {{variable}})
 
+
   series <- xts(data[, -1], order.by = data$year_month)
+
 
   if (yearly) {
     if (variable == "mean_ticket") {
