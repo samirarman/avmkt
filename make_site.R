@@ -7,7 +7,7 @@ library(RColorBrewer)
 
 # Data processing -----------
 download.file(
-  "https://www.anac.gov.br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/Dados_Estatisticos.zip",
+  "https://www.gov.br/anac/pt-br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/Dados_Estatisticos.zip",
   destfile = "data.zip"
 )
 
