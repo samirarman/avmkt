@@ -5,46 +5,53 @@ library(dygraphs)
 library(xts)
 library(RColorBrewer)
 
-# Data processing -----------
-download.file(
-  "https://www.gov.br/anac/pt-br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/Dados_Estatisticos.zip",
-  destfile = "data.zip"
-)
+2000:2021 %>%
+  map( ~ download.file(
+    paste0(
+      "https://www.gov.br/anac/pt-br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/resumo_anual_",
+      .x,
+      ".csv"
+    ),
+    destfile = paste0(.x, ".csv")
+  ))
 
 fares <- readRDS("fares_summary.rds")
 
-raw_data <- read_delim(
-  "data.zip",
-  ";",
-  escape_double = FALSE,
-  locale = locale(
-    date_names = "pt",
-    decimal_mark = ",",
-    grouping_mark = ".",
-    encoding = "WINDOWS-1252"
-  ),
-  trim_ws = TRUE,
-  col_types = cols(
-    .default = col_double(),
-    `EMPRESA (SIGLA)` = col_character(),
-    `EMPRESA (NOME)` = col_character(),
-    `EMPRESA (NACIONALIDADE)` = col_character(),
-    `AEROPORTO DE ORIGEM (SIGLA)` = col_character(),
-    `AEROPORTO DE ORIGEM (NOME)` = col_character(),
-    `AEROPORTO DE ORIGEM (UF)` = col_character(),
-    `AEROPORTO DE ORIGEM (REGIÃO)` = col_character(),
-    `AEROPORTO DE ORIGEM (PAÍS)` = col_character(),
-    `AEROPORTO DE ORIGEM (CONTINENTE)` = col_character(),
-    `AEROPORTO DE DESTINO (SIGLA)` = col_character(),
-    `AEROPORTO DE DESTINO (NOME)` = col_character(),
-    `AEROPORTO DE DESTINO (UF)` = col_character(),
-    `AEROPORTO DE DESTINO (REGIÃO)` = col_character(),
-    `AEROPORTO DE DESTINO (PAÍS)` = col_character(),
-    `AEROPORTO DE DESTINO (CONTINENTE)` = col_character(),
-    NATUREZA = col_character(),
-    `GRUPO DE VOO` = col_character()
+raw_data <- 2000:2021 %>%
+  map_dfr(
+    ~ read_delim(
+      paste0(.x,".csv"),
+      ";",
+      escape_double = FALSE,
+      locale = locale(
+        date_names = "pt",
+        decimal_mark = ",",
+        grouping_mark = ".",
+        encoding = "WINDOWS-1252"
+      ),
+      trim_ws = TRUE,
+      col_types = cols(
+        .default = col_double(),
+        `EMPRESA (SIGLA)` = col_character(),
+        `EMPRESA (NOME)` = col_character(),
+        `EMPRESA (NACIONALIDADE)` = col_character(),
+        `AEROPORTO DE ORIGEM (SIGLA)` = col_character(),
+        `AEROPORTO DE ORIGEM (NOME)` = col_character(),
+        `AEROPORTO DE ORIGEM (UF)` = col_character(),
+        `AEROPORTO DE ORIGEM (REGIÃO)` = col_character(),
+        `AEROPORTO DE ORIGEM (PAÍS)` = col_character(),
+        `AEROPORTO DE ORIGEM (CONTINENTE)` = col_character(),
+        `AEROPORTO DE DESTINO (SIGLA)` = col_character(),
+        `AEROPORTO DE DESTINO (NOME)` = col_character(),
+        `AEROPORTO DE DESTINO (UF)` = col_character(),
+        `AEROPORTO DE DESTINO (REGIÃO)` = col_character(),
+        `AEROPORTO DE DESTINO (PAÍS)` = col_character(),
+        `AEROPORTO DE DESTINO (CONTINENTE)` = col_character(),
+        NATUREZA = col_character(),
+        `GRUPO DE VOO` = col_character()
+      )
+    )
   )
-)
 
 data <-
   raw_data %>%
@@ -208,8 +215,16 @@ make_share_plot <- function(market, variable, yearly = FALSE) {
       }
     } &
       company %in% top_companies) %>%
-    select(year_month, company, {{variable}}) %>%
-    pivot_wider(names_from = company, values_from = {{variable}})
+    select(year_month, company, {
+      {
+        variable
+      }
+    }) %>%
+    pivot_wider(names_from = company, values_from = {
+      {
+        variable
+      }
+    })
 
   series <- as.xts(data[, -1], order.by = data$year_month)
 
@@ -253,8 +268,16 @@ make_fare_plots <- function(variable, yearly = FALSE) {
 
   data <-
     fares %>%
-    select(year_month, company, {{variable}}) %>%
-    pivot_wider(names_from = company, values_from = {{variable}})
+    select(year_month, company, {
+      {
+        variable
+      }
+    }) %>%
+    pivot_wider(names_from = company, values_from = {
+      {
+        variable
+      }
+    })
 
 
   series <- xts(data[, -1], order.by = data$year_month)
