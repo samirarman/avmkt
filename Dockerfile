@@ -15,6 +15,5 @@ COPY *.rds /home/avmkt/
 CMD cd /home/avmkt && \
     Rscript make_site.R && \
     touch .nojekyll && \
-    rm data.zip && \
-    rm *.rds \
+    rm *.rds && \
     rm *.csv
