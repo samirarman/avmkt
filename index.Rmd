@@ -8,43 +8,68 @@ title: "Mercado de passageiros"
 ## {.tabset .tabset-pills}
 
 ### Passageiros transportados (em milhões)
+<br>
 
+#### **Mercado agregado**
 ```{r}
-yearly_plots$pax
-monthly_plots$pax
+yearly_market_plots$pax
+monthly_market_plots$pax
 ```
+<br>
+<br>
 
+#### **Por companhias**
+```{r}
+monthly_dom_companies_plots$pax
+monthly_intl_companies_plots$pax
+```
 <br>
 
 
 ### Demanda (assentos-km)
-
-```{r}
-yearly_plots$rpk
-monthly_plots$rpk
-```
-
 <br>
 
+#### **Mercado agregado**
+```{r}
+yearly_market_plots$rpk
+monthly_market_plots$rpk
+```
+<br>
+<br>
+
+#### **Por companhias**
+```{r}
+monthly_dom_companies_plots$rpk
+monthly_intl_companies_plots$rpk
+```
+
 ### *Market-share*
+<br>
+
 ```{r}
 share_plots$dom_pax
 share_plots$intl_pax
 ```
-
-
 ### *Load factor* (em %)
-
 ```{r}
-yearly_plots$load
-monthly_plots$load
+yearly_market_plots$load
+monthly_market_plots$load
 ```
-
 <br>
 
 ### Decolagens
+<br>
 
+#### **Mercado agregado**
 ```{r}
-yearly_plots$departures
-monthly_plots$departures
+yearly_market_plots$departures
+monthly_market_plots$departures
 ```
+<br>
+<br>
+
+#### **Por companhias**
+```{r}
+monthly_dom_companies_plots$departures
+```
+

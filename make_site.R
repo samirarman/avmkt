@@ -143,6 +143,41 @@ make_market_graph <-
       dyRangeSelector(height = 30)
   }
 
+# Custom plotting function for companies related metrics
+make_companies_plot <- function(market, variable, companies, yearly = FALSE) {
+  title <-
+    ifelse(market == "INTERNACIONAL", "Internacional", "Nacional")
+
+  data <- companies_monthly_summaries %>%
+    filter(market == {
+      {
+        market
+      }
+    } &
+      company %in% companies) %>%
+    select(year_month, company, {
+      {
+        variable
+      }
+    }) %>%
+    pivot_wider(names_from = company, values_from = {
+      {
+        variable
+      }
+    })
+
+  series <- as.xts(data[, -1], order.by = data$year_month)
+
+  if (yearly) {
+    series <- apply.yearly(series, mean)
+  }
+
+  series %>%
+    dygraph(main = title, group = "market") %>%
+    dyOptions(colors = RColorBrewer::brewer.pal(12, "Paired")) %>%
+    dyRangeSelector(height = 30)
+}
+
 metrics <-
   list(
     pax = "pax",
@@ -154,19 +189,22 @@ metrics <-
     rck = "rck"
   )
 
-monthly_plots <-
+monthly_market_plots <-
   metrics %>%
   map(make_market_graph)
 
-yearly_plots <-
+yearly_market_plots <-
   pmap(list(metrics, rep(TRUE, length(metrics))), make_market_graph)
 
 companies_monthly_summaries <-
   data %>%
-  select(year_month, company, market, rpk, rck) %>%
+  select(year_month, company, market, rpk, rck, pax, departures, cargo) %>%
   group_by(year_month, company, market) %>%
   summarise(rpk = sum(rpk, na.rm = TRUE),
-            rck = sum(rck, na.rm = TRUE)) %>%
+            rck = sum(rck, na.rm = TRUE),
+            pax = sum(pax, na.rm = TRUE),
+            departures = sum(pax, na.rm = TRUE),
+            cargo = sum(cargo, na.rm = TRUE)) %>%
   group_by(year_month, market) %>%
   mutate(
     mkt_rpk = sum(rpk, na.rm = TRUE),
@@ -174,6 +212,18 @@ companies_monthly_summaries <-
     pax_share = 100 * rpk / mkt_rpk,
     cargo_share = 100 * rck / mkt_rck
   )
+
+main_domestic_companies <- c("AZU", "GLO", "IPM", "TAM", "ONE", "VRG", "VSP", "TIB")
+
+monthly_dom_companies_plots <-
+  list(
+    pax = "pax",
+    rpk = "rpk",
+    rck = "rck",
+    departures = "departures",
+    cargo = "cargo"
+  ) %>%
+  map(~make_companies_plot("DOMÉSTICA", ., companies = main_domestic_companies, yearly = FALSE))
 
 # Finds the top n filtered by a variable
 find_top <- function(market, variable, rank) {
@@ -203,49 +253,23 @@ top_companies <-
   unlist %>%
   unique
 
-# Custom plotting function for market-share
-make_share_plot <- function(market, variable, yearly = FALSE) {
-  title <-
-    ifelse(market == "INTERNACIONAL", "Internacional", "Nacional")
+monthly_intl_companies_plots <-
+  list(
+    pax = "pax",
+    rpk = "rpk",
+    rck = "rck",
+    cargo = "cargo"
+  ) %>%
+  map(~make_companies_plot("INTERNACIONAL", ., companies = top_companies, yearly = FALSE))
 
-  data <- companies_monthly_summaries %>%
-    filter(market == {
-      {
-        market
-      }
-    } &
-      company %in% top_companies) %>%
-    select(year_month, company, {
-      {
-        variable
-      }
-    }) %>%
-    pivot_wider(names_from = company, values_from = {
-      {
-        variable
-      }
-    })
-
-  series <- as.xts(data[, -1], order.by = data$year_month)
-
-  if (yearly) {
-    series <- apply.yearly(series, mean)
-  }
-
-  series %>%
-    dygraph(main = title, group = "market") %>%
-    dyOptions(colors = RColorBrewer::brewer.pal(12, "Paired")) %>%
-    dyRangeSelector(height = 30)
-}
 
 # Market-share plots
 share_plots <-
   expand.grid(
     market = c("DOMÉSTICA", "INTERNACIONAL"),
-    variable = c("pax_share", "cargo_share"),
-    yearly = TRUE
+    variable = c("pax_share", "cargo_share")
   ) %>%
-  pmap(make_share_plot)
+  pmap(~make_companies_plot(.x, .y, yearly = TRUE, companies = top_companies))
 
 names(share_plots) <-
   c("dom_pax", "intl_pax", "dom_cargo", "intl_cargo")
