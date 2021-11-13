@@ -36,7 +36,7 @@ monthly_market_plots$rck
 <br>
 <br>
 
-### **Por companhia**
+#### **Por companhia**
 ```{r}
 monthly_dom_companies_plots$rck
 monthly_intl_companies_plots$rck
