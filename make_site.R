@@ -128,6 +128,7 @@ make_market_graph <-
 
     series <-
       as.xts(data[, 2:4], order.by = data$year_month)
+    print(series)
 
     if (yearly) {
       if (variables == "load_factor") {
@@ -166,7 +167,7 @@ make_companies_plot <- function(market, variable, companies, yearly = FALSE) {
       }
     })
 
-  series <- as.xts(data[, -1], order.by = data$year_month)
+  series <- as.xts(data[, -1:-2], order.by = data$year_month)
 
   if (yearly) {
     series <- apply.yearly(series, mean)
