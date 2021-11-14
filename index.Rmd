@@ -50,6 +50,8 @@ monthly_intl_companies_plots$rpk
 share_plots$dom_pax
 share_plots$intl_pax
 ```
+<br>
+
 ### *Load factor* (em %)
 ```{r}
 yearly_market_plots$load
