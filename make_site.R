@@ -4,8 +4,9 @@ library(DT)
 library(dygraphs)
 library(xts)
 library(RColorBrewer)
+library(lubridate)
 
-2000:2021 %>%
+2000:year(Sys.Date()) %>%
   map( ~ download.file(
     paste0(
       "https://www.gov.br/anac/pt-br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/resumo_anual_",
@@ -17,7 +18,7 @@ library(RColorBrewer)
 
 fares <- readRDS("fares_summary.rds")
 
-raw_data <- 2000:2021 %>%
+raw_data <- 2000:year(Sys.Date()) %>%
   map_dfr(
     ~ read_delim(
       paste0(.x,".csv"),
