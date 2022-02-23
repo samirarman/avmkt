@@ -200,13 +200,12 @@ yearly_market_plots <-
 
 companies_monthly_summaries <-
   data %>%
-  select(year_month, company, market, rpk, rck, pax, departures, cargo) %>%
   group_by(year_month, company, market) %>%
-  summarise(rpk = sum(rpk, na.rm = TRUE),
-            rck = sum(rck, na.rm = TRUE),
-            pax = sum(pax, na.rm = TRUE),
-            departures = sum(pax, na.rm = TRUE),
-            cargo = sum(cargo, na.rm = TRUE)) %>%
+  agg_if_numeric() %>%
+  mutate(rpk = rpk / 1e9,
+         rck = rck / 1e9,
+         pax = pax / 1e6,
+         cargo = cargo / 1e3) %>%
   group_by(year_month, market) %>%
   mutate(
     mkt_rpk = sum(rpk, na.rm = TRUE),
@@ -223,7 +222,9 @@ monthly_dom_companies_plots <-
     rpk = "rpk",
     rck = "rck",
     departures = "departures",
-    cargo = "cargo"
+    cargo = "cargo",
+    pax_share = "pax_share",
+    cargo_share = "cargo_share"
   ) %>%
   map(~make_companies_plot("DOMÉSTICA", ., companies = main_domestic_companies, yearly = FALSE))
 
@@ -260,7 +261,9 @@ monthly_intl_companies_plots <-
     pax = "pax",
     rpk = "rpk",
     rck = "rck",
-    cargo = "cargo"
+    cargo = "cargo",
+    pax_share = "pax_share",
+    cargo_share = "cargo_share"
   ) %>%
   map(~make_companies_plot("INTERNACIONAL", ., companies = top_companies, yearly = FALSE))
 
@@ -332,3 +335,4 @@ fare_plots <-
   map(make_fare_plots)
 
 rmarkdown::render_site()
+

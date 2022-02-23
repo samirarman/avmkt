@@ -42,13 +42,24 @@ monthly_market_plots$rpk
 monthly_dom_companies_plots$rpk
 monthly_intl_companies_plots$rpk
 ```
+<br>
+
 
 ### *Market-share*
 <br>
 
+#### **Mercado agregado**
 ```{r}
 share_plots$dom_pax
 share_plots$intl_pax
+```
+<br>
+<br>
+
+#### **Por companhias**
+```{r}
+monthly_dom_companies_plots$pax_share
+monthly_intl_companies_plots$pax_share
 ```
 <br>
 
