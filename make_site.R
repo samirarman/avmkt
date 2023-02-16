@@ -6,7 +6,7 @@ library(xts)
 library(RColorBrewer)
 library(lubridate)
 
-2000:2023 %>%
+2000:2022 %>%
   map( ~ download.file(
     paste0(
       "https://www.gov.br/anac/pt-br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/resumo_anual_",
