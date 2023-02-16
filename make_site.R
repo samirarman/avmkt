@@ -18,7 +18,8 @@ library(lubridate)
 
 fares <- readRDS("fares_summary.rds")
 
-raw_data <- 2000:year(Sys.Date()) %>%
+# Waiting for 2023 file, if it will be available or not
+raw_data <- 2000:2022 %>%
   map_dfr(
     ~ read_delim(
       paste0(.x,".csv"),
