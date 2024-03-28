@@ -1,0 +1,21 @@
+div .dygraphs {
+  max-width: 100%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+div .dygraph-label {
+  font-weight: normal;
+}
+
+div .dygraph-axis-label {
+  font-weight: normal;
+}
+
+canvas {
+  max-width: 100%;
+}
+
+div .tabset {
+  font-weight: bold;
+}
