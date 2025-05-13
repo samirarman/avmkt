@@ -6,7 +6,7 @@ library(xts)
 library(RColorBrewer)
 library(lubridate)
 
-2000:2024 %>%
+2000:2025 %>%
   map( ~ download.file(
     paste0(
       "https://www.gov.br/anac/pt-br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/resumo_anual_",
@@ -18,7 +18,7 @@ library(lubridate)
 
 fares <- readRDS("fares_summary.rds")
 
-raw_data <- 2000:2024 %>%
+raw_data <- 2000:2025 %>%
   map_dfr(
     ~ read_delim(
       paste0(.x,".csv"),
