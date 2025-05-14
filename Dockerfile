@@ -1,6 +1,6 @@
 FROM rocker/verse:4.0.0
 
-RUN R -e "install.packages(c('zoo', 'DT', 'dygraphs', 'xts', 'RColorBrewer', 'lubridate'))"
+RUN R -e "install.packages(c('zoo', 'DT', 'dygraphs', 'xts', 'RColorBrewer', 'lubridate', 'deflateBR'))"
 
 RUN mkdir /home/avmkt
 

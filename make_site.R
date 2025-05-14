@@ -5,6 +5,7 @@ library(dygraphs)
 library(xts)
 library(RColorBrewer)
 library(lubridate)
+library(deflateBR)
 
 2000:2025 %>%
   map( ~ download.file(
@@ -17,6 +18,7 @@ library(lubridate)
   ))
 
 fares <- readRDS("fares_summary.rds")
+fares$mean_ticket_ipca <- deflate(fares$mean_ticket, as.Date(fares$year_month), format(max(df$year_month), "%m/%Y"))
 
 raw_data <- 2000:2025 %>%
   map_dfr(
@@ -328,7 +330,9 @@ make_fare_plots <- function(variable, yearly = FALSE) {
 
 variables <- list(yield = "yield",
                   seats = "seats",
-                  mean_ticket = "mean_ticket")
+                  mean_ticket = "mean_ticket",
+                  mean_ticket_ipca = "mean_ticket_ipca")
+
 
 fare_plots <-
   variables %>%

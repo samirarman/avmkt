@@ -13,6 +13,13 @@ fare_plots$mean_ticket
 
 <br>
 
+### Ticket-médio corrigido (em R$)
+```{r}
+fare_plots$mean_ticket_ipca
+```
+
+<br>
+
 ### Assentos vendidos (em milhares)
 
 ```{r}
