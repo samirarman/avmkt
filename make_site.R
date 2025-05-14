@@ -18,7 +18,7 @@ library(deflateBR)
   ))
 
 fares <- readRDS("fares_summary.rds")
-fares$mean_ticket_ipca <- deflate(fares$mean_ticket, as.Date(fares$year_month), format(max(df$year_month), "%m/%Y"))
+fares$mean_ticket_ipca <- deflate(fares$mean_ticket, as.Date(fares$year_month), format(max(fares$year_month), "%m/%Y"))
 
 raw_data <- 2000:2025 %>%
   map_dfr(
