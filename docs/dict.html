@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Dicionário de siglas</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.13/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Mercado da aviação no Brasil</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Passageiros</a>
+</li>
+<li>
+  <a href="cargo.html">Cargas</a>
+</li>
+<li>
+  <a href="fares.html">Tarifas domésticas</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="dict.html">Siglas</a>
+</li>
+<li>
+  <a href="about.html">Sobre</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Dicionário de siglas</h1>
+
+</div>
+
+
+<div id="htmlwidget-af0ae177b0772707ccf7" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-af0ae177b0772707ccf7">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237","238","239","240","241","242","243","244","245","246","247","248","249","250","251","252","253","254","255","256","257","258","259","260","261","262","263","264","265","266","267","268","269","270","271","272","273","274","275","276","277","278","279","280","281","282","283","284","285","286","287","288","289","290","291","292","293","294","295","296","297","298","299","300","301","302","303","304","305","306","307","308","309","310","311","312","313","314"],["1ED","2BF","AAF","AAL","ABB","ABD","ABJ","ABJ","ABW","ABX","ABZ","ACA","ACL","ACN","ACX","ADB","AEA","AEY","AFL","AFR","AHY","AJB","AJI","AJT","ALV","ALY","AMG","AMX","ANA","ANS","APW","ARE","ARG","ARN","ARU","ASO","ATG","ATN","AUT","AUZ","AVA","AWC","AWE","AXE","AXY","AZA","AZG","AZN","AZP","AZQ","AZS","AZU","BAW","BCA","BEL","BET","BGA","BLC","BOL","BOV","BQB","BRB","BSC","BUY","CAJ","CCA","CDN","CFG","CIU","CJE","CJT","CKS","CLU","CLX","CMP","CND","CNT","COA","CQB","CRX","CSB","CSW","CUB","CVK","CWC","CXB","DAE","DAL","DAP","DJT","DLH","DMJ","DRD","DSM","DTA","DTR","DVR","DWI","DYA","EAL","EDR","EDW","EEA","EIA","ELY","EPT","EQX","ETD","ETH","ETR","EUS","EUU","EVE","FBZ","FDX","FNT","FPO","FWI","FWL","FYW","GAA","GAL","GCA","GEC","GLO","GNJ","GTI","GWR","GXA","HFM","HFY","HWA","IBE","ICE","ICV","IGA","INC","IPM","ISS","ITB","ITY","IWD","JAF","JAL","JAP","JAT","JES","JKK","JMK","KAI","KAL","KGK","KLM","KMF","KPM","KRE","KYE","LAC","LAE","LAN","LAP","LAU","LCO","LDI","LLB","LMI","LNE","LOT","LPE","LPE","LRC","LTG","LVG","LXP","LYC","MAA","MBK","MCJ","MEL","MEM","MKA","MLI","MLT","MMZ","MON","MPH","MSI","MSQ","MSR","MST","MWM","MXA","NAO","NCA","NCR","NES","NGB","NHG","NLU","NOS","NRA","NRS","OAE","OBS","OLC","OLS","OMI","ONE","ONS","PAC","PAM","PEP","PLY","POT","PTB","PTN","PUA","PUE","PVG","PVV","QCL","QFA","QTR","RAM","RDA","RDN","RER","REU","RIO","RJD","RLE","ROI","RSB","RSB","RSL","RSU","RUC","RUN","RZO","SAA","SAS","SBA","SGU","SHH","SIA","SID","SKC","SKU","SKX","SLM","SLX","SMJ","SOO","SQC","SRU","STR","SUL","SVA","SWQ","SWR","TAE","TAM","TAP","TBA","TCV","TFL","TGY","THY","TIB","TIM","TIW","TMA","TNO","TOM","TOT","TOT","TPA","TPE","TPU","TSC","TSD","TTL","TVJ","TVQ","TVR","TVS","TWN","TXC","UAE","UAL","UCG","UKL","UPS","URO","UZB","VCR","VCV","VDA","VIP","VIV","VLO","VPE","VRG","VRN","VSP","VTU","VVC","WAL","WEB","WFL","WGN","WOA","WTJ","XCA"],["SERVICIOS AÉREOS PANAMERICANOS LTDA. SARPA S.A.S","BAIRES FLY","AIGLE AZUR","AMERICAN AIRLINES, INC.","AIR BELGIUM S.A.","AIR ATLANTA ICELANDIC","ABAETÉ LINHAS AÉREAS S.A.","ATA - AEROTÁXI ABAETÉ LTDA.","AIRBRIDGE CARGO AIRLINES (VOLGA-DNEPR GROUP)","ABX AIR, INC.","ATA BRASIL","AIR CANADA","AEROLÍNEA DEL CARIBE  S.A. - AERCARIBE","AZUL CONECTA LTDA. (EX TWO TAXI AEREO LTDA)","ACG AIR CARGO GERMANY GMBH","ANTONOV COMPANY","AIR EUROPA LINEAS AEREAS SOCIEDAD ANONIMA","AIR ITALY S.PA.","AEROFLOT- AEROLÍNEAS INTERNACIONAIS DA RÚSSIA","SOCIÉTÉ AIR FRANCE","AZERBAIJAN AIRLINES","AMERICAN JET S.A.","AMERISTAR AIR CARGO","AMERIJET INTERNACIONAL INC.","ALAS DE VENEZUELA","DYRUS S.A. (ALAS URUGUAY OU ALAS U)","AIR MINAS LINHAS AÉREAS LTDA.","AEROVÍAS DE MÉXICO S.A DE C.V - AEROMÉXICO","ALL NIPPON AIRWAYS","ANDES LINEAS AEREAS","ARROW AIR, INC.","AIRES - AEROVÍAS DE INTEGRACÍON REGIONAL S.A.","AEROLINEAS ARGENTINAS S/A","AERONEXUS CORPORATE","AIR ARUBA","AEROSUL LINHAS AÉREAS LTDA. (EX AEROSUL TÁXI AÉREO E AUSTEN)","AEROTRANSCARGO SRL","AIR TRANSPORT INTERNATIONAL","AUSTRAL LINEAS AÉREAS - CIELOS DEL SUR","CRISTALUX S.A (AMASZONAS URUGUAY)","AEROVIAS DEL CONTINENTE AMERICANO S.A. AVIANCA","TITAN AIRWAYS","US AIRWAIS, INC","AIREXPLORE S.R.O.","AIR X CHARTER LTD","ALITALIA SOCIETA AEREA ITALIANA S.P.A.","SILK WAY WEST AIRLINES","COMPAÑIA DE SERVICIOS DE TRANSPORTE AEREO AMASZONAS S/A.","COMPAÑIA DE AVIACION PARAGUAYA SOCIEDAD ANONIMA - PARANAIR (EX- AMASZONAS PARAGUAY)","SILK WAY AIRLINES","AVIACON ZITOTRANS","AZUL LINHAS AÉREAS BRASILEIRAS S/A","BRITISH AIRWAYS PLC","BRASMEX - BRASIL MINAS EXPRESS LTDA.","BRUSSELS AIRLINES","BETA - BRAZILIAN EXPRESS TRANSPORTES AÉREOS LTDA.","AIRBUS TRANSPORT INTERNATIONAL","TAM-TRANSPORTE AEREOS MERIDIONAIS","TRANSPORTES AEREOS BOLIVIANOS","BOA BOLIVIANA DE AVIACIÓN","BQB LÍNEAS AÉREAS (LOS CIPRESES S.A.)","BRA","LLC AIR COMPANY \"AEROSTAN\"","FREEDOM II BERMUDA LIMITED","AIR CARAIBES ATLANTIQUE","AIR CHINA","CANADIAN","CONDOR FLUGDIENST GMBH","CIELOS DEL PERU","AEROSERVICES CORPORATE","CARGOJET AIRWAYS LTD.","KALITTA AIR LLC","CARGOLOGICAIR LIMITED","CARGOLUX AIRLINES INTERNATIONAL S/A","COMPAÑIA PANAMEÑA DE AVIACION S.A. (COPA AIRLINES)","CORENDON DUTCH AIRLINES B.V.","CONNECT LINHAS AÉREAS S.A. (ANTIGA CONNECT TÁXI AÉREO LTDA.)","CONTINENTAL AIRLINES","APUÍ TÁXI AÉREO S/A","CROSSAIR LTD","21 AIR, LLC","SW ITALIA S. P. A.","CUBANA DE AVIACION S.A.","CAVOK AIR","CENTURION AIR CARGO INC.","COMLUX ARUBA NV","DHL AERO EXPRESO","DELTA AIR LINES INC.","AEROVIAS DAP S/A.","DREAMJET","DEUTSCHE LUFTHANSA A.G.","AEROLINEAS DAMOJH S.A.","AIR MADRID LÍNEAS AÉREAS S.A","LAN ARGENTINA S.A.","TAAG LINHAS AÉREAS DE ANGOLA (ANGOLA AIRLINES)","DANISH AIR TRANSPORT","DIVI DIVI AIR","ARAJET S.A.","DYNAMIC AIRWAYS LLC","EASTERN AIRLINES, LLC","FLY ALLWAYS N.V.","EDELWEISS AIR AG","ECUATORIANA DE AVIACION S/A","EVERGREEN INTERNATIONAL AIRLINES","EL AL ISRAEL AIRLINES LTD","EMPRESA PÚBLICA DE TRANSPORTE AÉREO MILITAR","EQUINOXAIR S.A.S","ETIHAD AIRWAYS P.J.S.C.","ETHIOPIAN AIRLINES GROUP","ESTELAR LATINOAMERICA C.A.","EURUS AVIATION S.A.P.I DE C.V","AIR EURO AMERICA","EVELOP AIRLINES S.L.","FB LÍNEAS AÉREAS S.A (FLYBONDI)","FEDEX - FEDERAL EXPRESS CORPORATION","FINLIGHT LIMITED LIABILITY COMPANY","ASL AIRLINES FRANCE S. A.","AIR CARAIBES S.A.","FLORIDA WEST INTL. AIRWAYS, INC.","FLYWAYS LINHAS AÉREAS LTDA.","GLOBAL AFRICA AVIATION","ALIANZA GLANCELOT, C.A. ALBATROS AIRLINES","GRAN COLOMBIA DE AVIACION S.A.S. - GCA AIRLINES","LUFTHANSA CARGO AG","GOL LINHAS AÉREAS S.A. (EX- VRG LINHAS AÉREAS S.A.)","GAINJET AVIATION","ATLAS AIR INC","AURA AIRLINES SL","GLOBAL CROSSING AIRLINES, INC.","HI FLY LIMITED (EX-MALTA)","SPRINGJET S.A. (EX -HI FLY - TRANSPORTES AÉREOS S/A.)","HILLWOOD AIRWAYS","IBÉRIA LINEAS AEREAS DE ESPAÑA SOCIEDAD ANONIMA OPERADORA","ICELANDAIR","CARGOLUX ITÁLIA S.P.A.","SKY TAXI SP. Z O.O.","INSEL AIR INTERNATIONAL B.V.","ITAPEMIRIM TRANSPORTES AEREOS LTDA","AIR ITALY S.P.A (EX - MERIDIANA FLY S.P.A).","INTERBRASIL","ITALIA TRANSPORTO AEREO S.P.A.","IBERWORLD AIRLINES S.A.","TUI AIRLINES BELGIUM - JETAIRFLY","JAPAN AIRLINES INTERNATIONAL COMPANY LIMITED","JETSMART AIRLINES PERÚ SAC.","JETSMART AIRLINES SPA - CHILE","JETSMART AIRLINES S.A - ARGENTINA","SPANAIR","JETMAGIC LTD","KAISER AIR","KOREAN AIR LINES CO. LTD.","SKY KG AIRLINES","KLM CIA. REAL HOLANDESA DE AVIAÇÃO","KAM AIR","SKY PRIM AIR´ AIR COMPANY","AEROSUCRE SA","SKY LEASE I, INC","L.A.C. LINEA AEREA CUENCANA","LÍNEA AÉREA CARGUEIRA DE COLOMBIA S.A - LANCO","LATAM AIRLINES GROUP (EX - LAN AIRLINES S/A)","TRANSPORTE AÉREOS DEL MERCOSUR S.A. (TAM MERCOSUR)","LÍNEAS AÉREAS SURAMERICANAS \"LAS\"","LAN CARGO S.A.","LAUDA AIR SPA","LLOYD AEREO BOLIVIANO","LAMIA CORPOTATION SRL","LATAM AIRLINES ECUADOR S.A.","LOT POLISH AIRLINES","LAN PERU S.A.","LATAM AIRLINES PERU (EX-LAN PERU S.A.)","AVIANCA COSTA RICA SOCIEDAD ANONIMA ( EX - LACSA LÍNEAS AÉREAS COSTARRICENSES S/A)","ABSA - AEROLINHAS BRASILEIRAS S.A.","LIVINGSTON S.P.A.","TRANSPORTE AÉREO SA - TASA (LAN EXPRESS)","LYNDEN AIR CARGO, LLC","AEROTRANSPORTES MAS DE CARGA S.A. DE C.V.","CHRONO JET INC","AVIAN LINEAS AÉREAS S/A","MEGA LINHAS AÉREAS LTDA.","AIR COMPANY MERIDIAN, LTD","MK AIRLINES LTDA.","MAIS LINHAS AÉREAS S.A","MALETH-AERO AOC LTD","EUROATLANTIC AIRWAYS","MONARCH AIRLINES","MARTINAIR HOLLAND N.V.","MOTOR SICH PUBLIC JOINT STOCK COMPANY","META - MESQUITA TRANSPORTES AÉREOS LTDA.","EGYPTAIR AIRLINES","MASTER TOP LINHAS AÉREAS S/A","MODERN TRANSPORTE AEREO DE CARGA S.A","MEXICANA DE AVIACIÓN S.A. DE C.V.","NORTH AMERICAN AIRLINES","NIPON CARGO AIRLINES","NATIONAL AIRLINES","NORDESTE","NORDIC GLOBAL AIRLINES LTD","BRAVA LINHAS AÉREAS LTDA. (EX- NHT)","INSEL AIR ARUBA N.V.","NEOS S.P.A","NOAR NORDESTE AVIAÇÃO REGIONAL LINHAS AÉREAS S.A.","NORWEGIAN AIR UK LIMITED","OMNI AIR INTERNATIONAL","ORBEST S.A.","SOLAR CARGO, CA","FLYEST LINEAS AÉREAS (EX SOL S.A. LINEAS AEREAS)","OMNI TÁXI AÉREO S.A.","OCEANAIR LINHAS AÉREAS S.A. (AVIANCA)","ONE AIRLINE S. P. A.","POLAR AIR CARGO LLC. (EX - POLAR AIR CARGO WORLDWIDE INC.)","MAP TRANSPORTES AÉREOS LTDA.","PENTA","PUMA AIR LINHAS AÉREAS LTDA.","POLET AIR CARGO","PASSAREDO TRANSPORTES AÉREOS S.A.","PANTANAL LINHAS AÉREAS S.A.","PLUNA LÍNEAS AÉREAS URUGUAYAS","PLUS ULTRA LÍNEAS AÉREAS S/A","PRIVILEGE STYLE S.A.","FLY PRO S.R.L.","AIR EXPRESS S.A. (AIR CLASS LINEAS AEREAS) / EX-AERO V.I.P. LTDA","QANTAS AIRWAYS","QATAR AIRWAYS GROUP","COMPAGNIE NATIONALE ROYAL AIR MAROC","RADA AIRLINES","DINAR LÍNEAS AEREAS","SERVICIO AEREO REGIONAL REGAIR AIR LTDA","AIR AUSTRAL","RIO LINHAS AÉREAS S.A.","ROTANA JET AVIATION L.L.C","RICO","AVIOR AIRLINES BRASIL C.A.","RUBYSTAR MIKHALAP Y.I.","RUBYSTAR AIRWAYS (UNITARY ENTERPRISE)","RIO SUL","AEROSUR - CIA BOLIVIANA DE TRANSPORTE AÉREO PRIVADO S.A.","RUTAS AÉREAS, CA - RUTACA","ACT AIRLINES","SATA INTERNACIONAL - AZORES AIRLINES","SOUTH AFRICAN AIRWAYS STATE OWNED COMPANY (SOC) LIMITED","SCANDINAVIAN AIRLINES SYSTEM","SOL LINHAS AÉREAS LTDA.","SOL DEL PARAGUAY LINEAS AÉREAS","SKY HIGH AVIATION SERVICES DOMINICANA S.A.","SINGAPORE AIRLINES LIMITED","SIDERAL LINHAS AÉREAS LTDA.","SKYMASTER","SKY AIRLINE S.A.","SKY AIRLINE PERU S.A.C.","SURINAM AIRWAYS LTD","SETE LINHAS AÉREAS LTDA.","AVIENT AVIATION","SOUTHERN AIR INC","SINGAPORE AIRLINES CARGO PTE LTD.","STAR UP S.A - STAR PERU","STERNA LINHAS AÉREAS LTDA.","ASTA LINHAS AÉREAS LTDA ( EX - AMÉRICA DO SUL LINHAS AÉREAS LTDA.)","SAUDIA AIRLINES","SWIFT AIR, LLC","SWISS INTERNATIONAL AIR LINES LTD.","TAME LINEA AEREA DEL ECUADOR","TAM LINHAS AÉREAS S.A.","TAP - TRANSPORTES AÉREOS PORTUGUESES S/A","TRANSBRASIL","EMPRESA DE TRANSPORTES AÉREOS DE CABO VERDE - TACV S.A.","TUI AIRLINES NEDERLAND BV","TRANS GUYANA AIRWAYS","TURKISH AIRLINES INC","TRIP SERVIÇOS DE SUPORTE AÉREO S.A (EX. TRIP LINHAS AÉREAS)","TEAM PARTICIPAÇÕES LTDA.","TRANSCARGA INTERNATIONAL AIRWAYS C.A.","TRANS MEDITERRANEAN AIRWAYS","AEROTRANSPORTE DE CARGA UNION. S.A. DE C.V.","TUI AIRWAYS LTD","ANIVIA SERVIÇOS AÉREOS LTDA","ANIVIA LINHAS AÉREAS LTDA","TAMPA CARGO S.A.","TRANSPORTES AEREOS PRESIDENTE S.A.","AVIANCA PERU S.A (EX: TRANS AMERICAN AIRLINES S.A. - TACA PERU)","AIR TRANSAT A.T. INC","TAF LINHAS AÉREAS S.A.","TOTAL LINHAS AÉREAS S.A.","TAVAJ","SMARTWINGS SLOVAKIA S.R.O.","CA TERRA AVIA SRL","SMARTWINGS A.S.","AVIALEASING AVIATION COMPANY","TRANSAVIAEXPORT AIRLINES","EMIRATES","UNITED AIRLINES, INC","UNIWORLD AIR CARGO","UKRAINE AIR ALLIANCE AIRLINES","UPS - UNITED PARCEL SERVICE CO.","EUROPEAN CARGO LTD.","UZBEKISTAN AIRWAYS","CRUISER LINHAS AÉREAS LTDA.","CONSORCIO VENEZOLANO DE INDUSTRIAS AERONAUTICAS Y SERVICIOS AÉREOS S.A., CONVIASA","VOLGA DNEPR AIRLINES","TAG AVIATION UK","AEROENLACES NACIONALES S.A.- VIVA AEROBUS","VARIG LOGÍSTICA S.A.","VIVA AIRLINES PERU SAC","VARIG - VIAÇÃO AÉREA RIO-GRANDENSE","VRG LINHAS AÉREAS S.A.","VIAÇÃO AÉREA SÃO PAULO","TURPIAL AIRLINES C.A","VIVA AIR - FAST COLOMBIA","CARIBBEAN SUN AIRLINES DBA WORLD ATLANTIC AIRLINES","WEBJET PARTICIPAÇÕES S.A. (EX-LINHAS AÉREAS)","WORLD 2 FLY, S.L. - W2FLY","WESTERN GLOBAL AIRLINES","WORLD AIRWAYS INC","WHITEJETS TRANSPORTES AÉREOS S.A.","COLT TRANSPORTE AÉREO S/A"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sigla ICAO<\/th>\n      <th>Nome da empresa<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
