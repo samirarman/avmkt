@@ -3,7 +3,7 @@ name: Data retriever
 on:
   push:
     branches:
-      - master
+      - master 
 
   workflow_dispatch:
   
